@@ -4,10 +4,23 @@
  */
 package com.yoprogramo.portfolio.service;
 
+import com.yoprogramo.portfolio.model.Proyecto;
+import java.util.List;
+
 /**
  *
  * @author Adrian
  */
 public interface IProyectoService {
+    
+    public List<Proyecto> verProyectos ();
+    
+    public void crearProyecto (Proyecto newProyecto);
+    
+    public void borrarProyecto (Long id);
+    
+    public List<Proyecto> buscarProyecto (int persona);
+    
+    public Proyecto updateProyecto(Long id, Proyecto newProyecto);    
     
 }

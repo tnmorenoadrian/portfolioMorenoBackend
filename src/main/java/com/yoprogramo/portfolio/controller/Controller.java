@@ -32,7 +32,7 @@ public class Controller {
        persoServ.crearPersona(newPersona);
     }
     
-    @GetMapping("list/personas")
+    @GetMapping("/list/personas")
     @ResponseBody
     public List<Persona>  verPersonas (){
        return persoServ.verPersonas();

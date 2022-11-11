@@ -4,8 +4,8 @@
  */
 package com.yoprogramo.portfolio.controller;
 
-import com.yoprogramo.portfolio.model.Educacion;
-import com.yoprogramo.portfolio.service.IEducacionService;
+import com.yoprogramo.portfolio.model.Proyecto;
+import com.yoprogramo.portfolio.service.IProyectoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,44 +19,43 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 /**
  *
  * @author Adrian
  */
 @RestController
 @CrossOrigin
-public class EducacionController {
+public class ProyectoController {
+ 
+  @Autowired
+    private IProyectoService proyServ;
     
-    @Autowired
-    private IEducacionService educaServ;
-    
-    @PostMapping ("/new/educacion")
-    public void agregarEducacion(@RequestBody Educacion newEducacion){
-       educaServ.crearEducacion(newEducacion);
+    @PostMapping ("/new/proyecto")
+    public void agregarProyecto(@RequestBody Proyecto newProyecto){
+       proyServ.crearProyecto(newProyecto);
     }
     
-    @GetMapping("/list/educaciones")
+    @GetMapping("/list/proyectos")
     @ResponseBody
-    public List<Educacion>  verEducacion (){
-       return educaServ.verEducaciones();
+    public List<Proyecto>  verProyecto (){
+       return proyServ.verProyectos();
     }
     
-    @DeleteMapping("/delete/educacion/{id}")
-    public void borrarEducacion(@PathVariable Long id){
-      educaServ.borrarEducacion(id);
+    @DeleteMapping("/delete/proyecto/{id}")
+    public void borrarProyecto(@PathVariable Long id){
+      proyServ.borrarProyecto(id);
     }
     
-    @GetMapping("/educacion/{persona}")
-    public List <Educacion> verEducacion(@PathVariable int persona){
-      return educaServ.buscarEducacion(persona);
+    @GetMapping("/proyecto/{persona}")
+    public List<Proyecto> verProyecto(@PathVariable int persona){
+      return proyServ.buscarProyecto(persona);
     }
    
     
-    @PutMapping("/update/educacion/{id}")
-    public ResponseEntity<Educacion> updateEducacion(@PathVariable Long id, @RequestBody Educacion newEducacion) {
-        Educacion educacion = educaServ.updateEducacion(id, newEducacion);
-        return new ResponseEntity<>(educacion, HttpStatus.OK);
-    }
+    @PutMapping("/update/proyecto/{id}")
+    public ResponseEntity<Proyecto> updateProyecto(@PathVariable Long id, @RequestBody Proyecto newProyecto) {
+        Proyecto proyecto = proyServ.updateProyecto(id, newProyecto);
+        return new ResponseEntity<>(proyecto, HttpStatus.OK);
+    }   
     
 }

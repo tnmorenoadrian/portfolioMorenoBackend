@@ -5,14 +5,15 @@
 package com.yoprogramo.portfolio.repository;
 
 import com.yoprogramo.portfolio.model.Educacion;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Adrian
  */
-public interface EducacionRepository extends JpaRepository <Educacion, Long>{
+public interface EducacionRepository extends JpaRepository <Educacion, Long>{   
     
-    
+    List<Educacion> findByPersona (int persona);
     
 }

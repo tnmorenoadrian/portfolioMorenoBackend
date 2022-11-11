@@ -19,7 +19,7 @@ public interface IEducacionService {
     
     public void borrarEducacion (Long id);
     
-    public Educacion buscarEducacion (Long id);
+    public List<Educacion> buscarEducacion (int persona);
     
     public Educacion updateEducacion(Long id, Educacion newEducacion);    
 }

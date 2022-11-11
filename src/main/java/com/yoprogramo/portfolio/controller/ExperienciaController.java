@@ -35,7 +35,7 @@ public class ExperienciaController {
        expeServ.crearExperiencia(newExperiencia);
     }
     
-    @GetMapping("list/experiencias")
+    @GetMapping("/list/experiencias")
     @ResponseBody
     public List<Experiencia>  verExperiencia (){
        return expeServ.verExperiencias();

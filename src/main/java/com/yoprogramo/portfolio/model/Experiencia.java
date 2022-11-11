@@ -21,6 +21,7 @@ public class Experiencia {
     private int persona;
     private String image_experiencia;
     private String titulo_experiencia;
+    @Column(columnDefinition="TEXT")
     private String info_experiencia;
     private String desde_experiencia;
     private String hasta_experiencia;

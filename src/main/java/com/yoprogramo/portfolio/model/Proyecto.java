@@ -18,31 +18,35 @@ public class Proyecto {
      @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long id_persona;
+    private int persona;
     private String image_proyecto;
     private String titulo_proyecto;
+    @Column(columnDefinition="TEXT")
     private String info_proyecto;
     private String desde_proyecto;
     private String hasta_proyecto;
+    private String link_proyecto;
      
     public Proyecto(){
         
     }
     
     public Proyecto(Long id,
-            Long id_persona,
+            int persona,
             String image_proyecto,
             String titulo_proyecto,
             String info_proyecto,
             String desde_proyecto,
-            String hasta_proyecto
+            String hasta_proyecto,
+            String link_proyecto
              ){
        this.id = id;
-       this.id_persona = id_persona;
+       this.persona = persona;
        this.image_proyecto = image_proyecto;
        this.titulo_proyecto = titulo_proyecto;
        this.info_proyecto = desde_proyecto;
        this.hasta_proyecto = hasta_proyecto;
+       this.link_proyecto = link_proyecto;
       
     }
     

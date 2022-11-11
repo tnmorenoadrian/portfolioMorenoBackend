@@ -18,9 +18,10 @@ public class Educacion {
      @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long id_persona;
+    private int persona;
     private String image_educacion;
     private String titulo_educacion;
+    @Column(columnDefinition="TEXT")   
     private String info_educacion;
     private String desde_educacion;
     private String hasta_educacion;
@@ -31,7 +32,7 @@ public class Educacion {
     
     public Educacion(
             Long id,
-            Long id_persona,
+            int persona,
             String image_educacion,
             String titulo_educacion,
             String info_educacion,
@@ -39,7 +40,7 @@ public class Educacion {
             String hasta_educacion
              ){
        this.id = id;
-       this.id_persona = id_persona;
+       this.persona = persona;
        this.image_educacion = image_educacion;
        this.titulo_educacion = titulo_educacion;
        this.info_educacion = info_educacion;
