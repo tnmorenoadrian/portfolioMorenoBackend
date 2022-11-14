@@ -8,11 +8,13 @@ package com.yoprogramo.portfolio.controller;
  *
  * @author Adrian
  */
+import java.util.Objects;
 import com.yoprogramo.portfolio.model.AuthRequest;
 import com.yoprogramo.portfolio.model.AuthResponse;
 import com.yoprogramo.portfolio.service.CustomUserDetailsService;
 import com.yoprogramo.portfolio.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +46,8 @@ public class LoginController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         } catch (AuthenticationException ex) {
-            throw new Exception("Incorrect Credentials", ex);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ImageUploadResponse("Las credenciales son incorrectas!"));
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
@@ -53,4 +56,5 @@ public class LoginController {
         return ResponseEntity.ok(new AuthResponse(jwt));
 
     }
+    
 }

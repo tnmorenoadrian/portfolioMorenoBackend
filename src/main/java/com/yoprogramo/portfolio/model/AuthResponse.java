@@ -8,14 +8,16 @@ package com.yoprogramo.portfolio.model;
  *
  * @author Adrian
  */
-public class AuthResponse {
-    private String jwt;
+import java.io.Serializable;
+public class AuthResponse implements Serializable{
+    private static final long serialVersionUID = -8091879091924046844L;
+    private final String jwt;
 
     public AuthResponse(String jwt) {
         this.jwt = jwt;
     }
 
     public String getJwt() {
-        return jwt;
+        return this.jwt;
     }
 }

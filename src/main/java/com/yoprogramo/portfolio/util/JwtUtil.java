@@ -8,58 +8,79 @@ package com.yoprogramo.portfolio.util;
  *
  * @author Adrian
  */
-import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 @Component
-public class JwtUtil {
+public class JwtUtil implements Serializable {
 
-    public static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
+	private static final long serialVersionUID = -2550185165626007488L;
+	
+	public static final long JWT_TOKEN_VALIDITY = 5*60*60;
 
-    @Value("${jwt.secretKey}")
-    private String SECRET_KEY;
+	@Value("${jwt.secret}")
+	private String secret;
 
-    public String extractUsername(String token) throws JwtException {
-        return extractClaim(token, Claims::getSubject);
-    }
+	public String extractUsername(String token) {
+		return getClaimFromToken(token, Claims::getSubject);
+	}
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws JwtException {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
+	public Date getIssuedAtDateFromToken(String token) {
+		return getClaimFromToken(token, Claims::getIssuedAt);
+	}
 
-    private Claims extractAllClaims(String token) {
-        Claims claims;
-        try {
-            claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-        } catch (ExpiredJwtException ex) {
-            logger.error("Expired Jwt Token. Please re-authenticate. See stacktrace:", ex);
-            throw ex;
-        } catch (JwtException jwtEx) {
-            logger.error("Invalid Jwt Token. See stacktrace: ", jwtEx);
-            throw jwtEx;
-        }
-        return claims;
-    }
+	public Date getExpirationDateFromToken(String token) {
+		return getClaimFromToken(token, Claims::getExpiration);
+	}
 
-    public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
-    }
+	public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+		final Claims claims = getAllClaimsFromToken(token);
+		return claimsResolver.apply(claims);
+	}
 
-    private String createToken(Map<String, Object> claims, String subject) {
+	private Claims getAllClaimsFromToken(String token) {
+		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+	}
 
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5)) // expires in 5 minutes
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
-    }
+	private Boolean isTokenExpired(String token) {
+		final Date expiration = getExpirationDateFromToken(token);
+		return expiration.before(new Date());
+	}
+
+	private Boolean ignoreTokenExpiration(String token) {
+		// here you specify tokens, for that the expiration is ignored
+		return false;
+	}
+
+	public String generateToken(UserDetails userDetails) {
+		Map<String, Object> claims = new HashMap<>();
+		return doGenerateToken(claims, userDetails.getUsername());
+	}
+
+	private String doGenerateToken(Map<String, Object> claims, String subject) {
+
+		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS512, secret).compact();
+	}
+
+	public Boolean canTokenBeRefreshed(String token) {
+		return (!isTokenExpired(token) || ignoreTokenExpiration(token));
+	}
+
+	public Boolean validateToken(String token, UserDetails userDetails) {
+		final String username = extractUsername(token);
+		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	}
 }
+
