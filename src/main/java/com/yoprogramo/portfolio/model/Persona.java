@@ -20,7 +20,10 @@ public class Persona {
     private String apellido;
     private String fecha_nacimiento;
     private String nacionalidad;
-    private String correo;
+    @Column(nullable = false, length = 50, unique = true)
+    private String email;
+    @Column(nullable = false, length = 64)
+    private String password;
     private String sobre_mi;
     private String ocupacion;
     private String image_background;
@@ -36,7 +39,8 @@ public class Persona {
             String apellido,
             String fecha_nacimiento,
             String nacionalidad,
-            String correo,
+            String email,
+            String password,
             String sobre_mi,
             String ocupacion,
             String image_background,
@@ -46,7 +50,8 @@ public class Persona {
        this.apellido = apellido;
        this.fecha_nacimiento = fecha_nacimiento;
        this.nacionalidad = nacionalidad;
-       this.correo = correo;
+       this.email = email;
+       this.password = password;
        this.sobre_mi = sobre_mi;
        this.ocupacion = ocupacion;
        this.image_background = image_background;

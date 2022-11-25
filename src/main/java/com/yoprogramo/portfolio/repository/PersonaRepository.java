@@ -5,6 +5,9 @@
 package com.yoprogramo.portfolio.repository;
 
 import com.yoprogramo.portfolio.model.Persona;
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +17,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PersonaRepository extends JpaRepository <Persona, Long>{
-    
+    Optional<Persona> findOneByEmail(String email);
 }
