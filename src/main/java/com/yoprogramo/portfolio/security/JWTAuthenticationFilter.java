@@ -32,6 +32,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             Collections.emptyList()
 
           );
+
+          
       return getAuthenticationManager().authenticate(usernamePAT);
   }
    
@@ -41,6 +43,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
       String token = TokenUtils.createToken(userDetails.getNombres(), userDetails.getUsername());
       response.addHeader("Authorization", "Bearer " + token);
+      response.getWriter().flush();
       super.successfulAuthentication(request, response, chain, authResult);
   }
 
