@@ -43,7 +43,7 @@ public class Controller {
       persoServ.borrarPersona(id);
     }
     
-    @GetMapping("/persona/{id}")
+    @GetMapping("/open/persona/{id}")
     public Persona verPersona(@PathVariable Long id){
       return persoServ.buscarPersona(id);
     }

@@ -47,7 +47,7 @@ public class EducacionController {
       educaServ.borrarEducacion(id);
     }
     
-    @GetMapping("/educacion/{persona}")
+    @GetMapping("/open/educacion/{persona}")
     public List <Educacion> verEducacion(@PathVariable int persona){
       return educaServ.buscarEducacion(persona);
     }

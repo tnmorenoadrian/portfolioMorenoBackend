@@ -5,12 +5,14 @@ import java.util.Collections;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.yoprogramo.portfolio.model.Persona;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
+@CrossOrigin
 public class UserDetailsImpl implements UserDetails{
 
     private final Persona persona;

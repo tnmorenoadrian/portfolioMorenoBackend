@@ -46,7 +46,7 @@ public class ProyectoController {
       proyServ.borrarProyecto(id);
     }
     
-    @GetMapping("/proyecto/{persona}")
+    @GetMapping("/open/proyecto/{persona}")
     public List<Proyecto> verProyecto(@PathVariable int persona){
       return proyServ.buscarProyecto(persona);
     }
