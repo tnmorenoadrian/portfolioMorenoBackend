@@ -48,7 +48,6 @@ public class WebSecurityConfig {
     }
 
     
-
     // @Bean
     // UserDetailsService userDetailsService(){
     //     InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
@@ -58,7 +57,6 @@ public class WebSecurityConfig {
     //     .build());
     //     return manager;
     // }
-
     
     @Bean
     AuthenticationManager authManager(HttpSecurity http) throws Exception {
