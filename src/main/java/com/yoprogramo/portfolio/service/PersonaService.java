@@ -39,10 +39,17 @@ public class PersonaService implements IPersonaService {
        return persoRepo.findById(id).orElse(null);
     }
     
+    // @Override
+    // public Persona updatePersona(Long id, Persona newPersona) {
+    //     Persona persona = persoRepo.findById(id).get();
+    //     newPersona.setId(persona.getId());
+    //     return persoRepo.save(newPersona);
+    // }
+
     @Override
     public Persona updatePersona(Long id, Persona newPersona) {
         Persona persona = persoRepo.findById(id).get();
-        newPersona.setId(persona.getId());
+        newPersona.setId(persona.getId());         
         return persoRepo.save(newPersona);
     }
     

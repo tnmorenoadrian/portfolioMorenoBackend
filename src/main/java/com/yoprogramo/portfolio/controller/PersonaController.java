@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin
-public class Controller {
+public class PersonaController {
     
     @Autowired
     private IPersonaService persoServ;

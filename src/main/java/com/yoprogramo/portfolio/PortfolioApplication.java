@@ -18,10 +18,10 @@ public class PortfolioApplication implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 			registry.addMapping("/**")
-			        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-					.allowedHeaders("header1", "header2", "header3")
+			        .allowedMethods("*")
+					.allowedHeaders("*")
 					.exposedHeaders("Authorization")
-					.allowedOrigins("http://localhost:4200","http://localhost:8081");
+					.allowedOrigins("*");
 			WebMvcConfigurer.super.addCorsMappings(registry);
 		}
     
