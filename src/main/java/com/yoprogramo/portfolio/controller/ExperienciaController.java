@@ -46,7 +46,7 @@ public class ExperienciaController {
       expeServ.borrarExperiencia(id);
     }
     
-    @GetMapping("/open/experiencia/{persona}")
+    @GetMapping("/open/experiencias/{persona}")
     public List<Experiencia> verExperiencia(@PathVariable int persona){
       return expeServ.buscarExperiencia(persona);
     }

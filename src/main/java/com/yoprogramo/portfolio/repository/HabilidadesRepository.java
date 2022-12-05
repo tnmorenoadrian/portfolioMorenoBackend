@@ -4,13 +4,16 @@
  */
 package com.yoprogramo.portfolio.repository;
 
-import com.yoprogramo.portfolio.model.Habilidades;
+import com.yoprogramo.portfolio.model.Habilidad;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Adrian
  */
-public interface HabilidadesRepository extends JpaRepository <Habilidades, Long>{
+public interface HabilidadesRepository extends JpaRepository <Habilidad, Long>{
+    
+    List<Habilidad> findByPersona (int persona);
     
 }
