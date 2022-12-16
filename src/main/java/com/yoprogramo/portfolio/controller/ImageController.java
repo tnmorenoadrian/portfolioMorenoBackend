@@ -68,7 +68,7 @@ public class ImageController {
     public boolean buscarImage(@PathVariable("name") String name) throws IOException {
              
         final Optional<Image> dbImage = imageRepository.findByName(name);
-        if (dbImage == null || dbImage.isEmpty()) {
+        if (dbImage == null || dbImage.isPresent()) {
             return false;
         }
         return true;
