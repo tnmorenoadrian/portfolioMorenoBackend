@@ -24,7 +24,7 @@ public class Persona {
     private String email;
     @Column(nullable = false, length = 64)
     private String password;
-    @Column(length = 2000)
+    @Column(length = 4000)
     private String sobre_mi;
     private String ocupacion;
     private String image_background;
